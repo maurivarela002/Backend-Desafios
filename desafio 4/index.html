@@ -13,16 +13,14 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="index.css" />
+    <script src="https://unpkg.com/rxjs@^7/dist/bundles/rxjs.umd.min.js"></script>
     <title>Desafio 4</title>
   </head>
-  <body>
-    <div class="form-outline INPUT">
-      <input onchange="mostrarTexto()" class="input" type="text" id="texto" value="escribime y toca enter" />
-      <div id="alerta"></div>
-    </div>
-
-    <p></p>
-
-    <script src="./index.js"></script>
-  </body>
+<body>
+    <label id="response">Ingrese un texto</label>
+    <input type="text" id="userInput" /> 
+    <div id="textoEspejo"></div>
+    <script src="./index.js">
+    </script>
+</body>
 </html>
