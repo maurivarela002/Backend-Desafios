@@ -1,4 +1,5 @@
 const http = require("http");
+
 function numeroAleatorio(min, max) {
   let number;
   return (number = Math.floor(min + Math.random() * (max - min + 1)));
@@ -10,10 +11,11 @@ const obj = {
   thumbnail: "Foto" + `${numeroAleatorio(1, 10)}`,
 };
 const server = http.createServer((request, response) => {
-  response.end("Hola , deberias estar viendo el server!");
-  response.end(JSON.stringify(obj));
+  const objetoPort = response.end(JSON.stringify(obj));
+  console.log(objetoPort);
 });
-const port = 6400;
+
+const port = 4000;
 server.listen(port, () => {
   console.log(`Servidor escuchando en ${port}`);
 });
