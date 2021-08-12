@@ -1,5 +1,14 @@
-{
-    title: "Pelota",
-    price: "400",
-    thumbnail: "https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5"
-}
+[
+    {
+      title: "Pelota1",
+      price: "400",
+      thumbnail:
+        "https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5"
+    },
+    {
+      title: "Pelota2",
+      price: "500",
+      thumbnail:
+        "https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5"
+    }
+  ]
