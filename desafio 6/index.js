@@ -1,4 +1,3 @@
-// import fs from 'fs';
 const fs = require("fs");
 
 class Archivo {
@@ -7,7 +6,7 @@ class Archivo {
   }
 }
 
-const nombreDeArchivo = JSON.stringify(new Archivo("./productos.txt"));
+const nombreDeArchivo = JSON.stringify(new Archivo("productos.txt"));
 
 async function Leer() {
   try {
