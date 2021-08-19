@@ -9,6 +9,9 @@ app.use(express.urlencoded({ extended: true }))
 
 const port = 8080;
 
+let visitasItem = 0;
+let visitasItemRandom = 0;
+
 const productos = {
     "items":
         [
@@ -33,6 +36,7 @@ const server = app.listen(port, () => {
 
 //productos 1
 app.get("/api/items", (req, res) => {
+    visitasItem++;
     const cantidad = productos.items.length
     console.log(cantidad);
     const cantidadDeProductos = { ...productos, cantidad: { cantidad } };
@@ -41,6 +45,7 @@ app.get("/api/items", (req, res) => {
 
 //producto random 2
 app.get("/api/item-random", (req, res) => {
+    visitasItemRandom++
     let leerArchivo = fs.readFileSync("productos.txt", "utf-8");
     const leerJSON = JSON.parse(leerArchivo);
     const random = () => Math.floor(Math.random() * leerJSON.length)
@@ -52,47 +57,6 @@ app.get("/api/item-random", (req, res) => {
 })
 
 //veces visitadas 3
-app.get("/api/getPalabra/:num", (req, res) => {
-    console.log("Palabraaaa")
-    const numLetra = req.params.num - 1;
-    const obetenerLetra = frase.split(" ")[numLetra]
-    res.status(200).json(obetenerLetra)
-})
-
-//sumar params
-app.get("/api/sumar/:num1/:num2", (req, res) => {
-    const numero1 = Number(req.params.num1)
-    const numero2 = Number(req.params.num2)
-    const suma = numero1 + numero2;
-
-    res.status(200).json(suma);
-})
-
-//sumar querys
-app.get("/api/sumar", (req, res) => {
-    const numero1 = Number(req.query.num1)
-    const numero2 = Number(req.query.num2)
-    const suma = numero1 + numero2;
-
-    res.status(200).json(suma);
-})
-
-//put 
-app.put("/api", (req, res) => {
-    const palabra = req.query.Nuevapalabra
-    frase = frase + " " + palabra
-    res.status(200).json(frase);
-})
-
-//delete
-app.delete("/api", (req, res) => {
-    const arrayPalabras = frase.split(" ");
-    arrayPalabras.pop()
-    frase = arrayPalabras.join(" ")
-    res.status(200).json(frase);
-})
-
-//post
-app.post("/api", (req, res) => {
-    console.log(req.body)
-})
+app.get("/api/visitas", (req, res) => {
+    res.send({ visitas: { items: visitasItem, item: visitasItemRandom } });
+});
