@@ -19,16 +19,22 @@ app.get("/api/productos/listar", (req, res) => {
 })
 
 // parte2
-app.get("/api/productos/listar/id", (req, res) => {
-    const leerArchivo = fs.readFileSync("productos.txt", "utf-8");
-    const productosToArray = JSON.parse(leerArchivo);
-    const idParams = req.params.id;
-
-    for (let i = 0; i < productosToArray.length; i++) {
-
+app.get('/api/productos/listar/:id', async (req, res) => {
+    try {
+        const productosleer = await fs.promises.readFile("productos.txt", "utf-8");
+        const array = JSON.parse(productosleer);
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].id == req.params.id) {
+                console.log(array[i]);
+                res.send({ item: array[i] });
+                return;
+            }
+        }
+        res.send({ error: 'producto no encontrado' });
+    } catch (err) {
+        console.log("hubo un error", err);
     }
-    res.status(200).json(porId)
-})
+});
 
 async function guardamosProductos(body) {
     try {
