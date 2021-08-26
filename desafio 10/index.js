@@ -19,8 +19,16 @@ server.on("error", (error) => {
 
 const ENGINE_NAME = "hbs";
 
-app.engine(ENGINE_NAME, handlebars({ extname: 'hbs', defaultLayout: __dirname + '/views/main', layoutDir: __dirname + '/views/layouts/index' }));
-app.set("views", path.join(__dirname, 'views'));
+app.engine(
+  ENGINE_NAME,
+  handlebars({
+    extname: ".hbs",
+    layoutsDir: __dirname + "/views/layouts",
+    partialsDir: __dirname + "/views/partials",
+    defaultLayout: "index.hbs",
+  })
+
+); app.set("views", path.join(__dirname, 'views'));
 app.set("view engine", ENGINE_NAME);
 
 app.post('/api/productos/guardar', (req, res) => {
@@ -31,19 +39,21 @@ app.post('/api/productos/guardar', (req, res) => {
   } catch (err) {
     console.log("hubo un error pusheando", err);
   }
-
 });
 
 app.get('/api/productos/vista', (req, res) => {
   const listaDeProductos = productos.listarProductos();
-  const i = listaDeProductos.length -1;
-  const TitleProd = listaDeProductos[i].title;
-  const PriceProd = listaDeProductos[i].price;
-  const ThumbnailProd = listaDeProductos[i].thumbnail;
-
-  res.render("main.hbs", {
-    title: TitleProd,
-    price: PriceProd,
-    thumbnail: ThumbnailProd
-  });
+  if (listaDeProductos.length = 0) {
+    res.render("main.hbs", {
+      listExists: false,
+      error: true,
+      mensaje: "No hay productos!"
+    });
+  } else {
+      res.render("main.hbs", {
+        listExists: true,
+        error: false,
+        listaDeProductos: listaDeProductos
+      });
+  }
 });
