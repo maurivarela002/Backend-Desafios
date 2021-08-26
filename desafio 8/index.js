@@ -1,66 +1,57 @@
-import express from 'express';
-import path from 'path';
-const __dirname = path.resolve();
-import fs from 'fs';
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+import express from "express";
+import path from "path";
+import productos from "./productos.js";
 
+
+const __dirname = path.resolve();
 const port = 8080;
-app.listen(port, () => {
-    console.log(`Puerto ${port} levantado!`)
+const app = express();
+const server = app.listen(port, () => {
+    console.log(`Puerto ${port} levantado!`);
+});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(`${__dirname}/public`));
+
+server.on("error", (error) => {
+    console.error(error);
 });
 
 //parte1
-app.get("/api/productos/listar", (req, res) => {
-    let leerArchivo = fs.readFileSync("productos.txt", "utf-8");
-    const productosToArray = JSON.parse(leerArchivo);
-    res.status(200).json(productosToArray)
+app.get('/api/productos/listar', (req, res) => {
+    try {
+        const listProductos = productos.listarProductos();
+        if (listProductos.length === 0) {
+            res.send({ error: 'no hay productos cargados en memoria' });
+            return;
+        }
+        res.send(listProductos);
+    } catch (err) {
+        console.log("hubo un error listando", err);
+    }
 })
 
-// parte2
-app.get('/api/productos/listar/:id', async (req, res) => {
+//parte2
+app.get('/api/productos/listar/:id', (req, res) => {
     try {
-        const productosleer = await fs.promises.readFile("productos.txt", "utf-8");
-        const array = JSON.parse(productosleer);
-        for (let i = 0; i < array.length; i++) {
-            if (array[i].id == req.params.id) {
-                console.log(array[i]);
-                res.send({ item: array[i] });
-                return;
-            }
+        const producto = productos.buscarProductoXid(req.params.id);
+        if (producto) {
+            res.send(producto);
+            return;
+        } else {
+            res.send({ error: 'producto no encontrado' });
         }
-        res.send({ error: 'producto no encontrado' });
     } catch (err) {
         console.log("hubo un error", err);
     }
 });
 
-async function guardamosProductos(body) {
-    try {
-        const productosleer = await fs.promises.readFile("productos.txt", "utf-8");
-        const array = JSON.parse(productosleer);
+//parte3
+app.post('/api/productos/guardar', (req, res) => {
+    const producto = productos.agregarProducto(req.body.title, req.body.price, req.body.thumbnail);
+    res.send(producto);
+});
 
-        const newProducto =
-        {
-            "title": body.Title,
-            "price": body.Price,
-            "thumbnail": body.Thumbnail,
-            "id": array.length + 1
-        };
-        array.push(newProducto);
-        await fs.promises.writeFile("productos.txt", JSON.stringify(array, null, "\t")
-        );
-    } catch (err) {
-        console.log("hubo un error", err)
-    };
-}
-
-app.post("/api/productos/guardar", async (req, res) => {
-    await guardamosProductos(req.body)
-    res.send(req.body)
-})
-
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
     res.sendFile(__dirname + "/index.html");
-})
+});
