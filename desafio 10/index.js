@@ -43,16 +43,15 @@ app.post('/api/productos/guardar', (req, res) => {
 
 app.get('/api/productos/vista', (req, res) => {
   const listaDeProductos = productos.listarProductos();
-  if (listaDeProductos.length = 0) {
+
+  if (listaDeProductos.length == 0) {
     res.render("main.hbs", {
       listExists: false,
-      error: true,
       mensaje: "No hay productos!"
     });
-  } else {
+  } else {-
       res.render("main.hbs", {
         listExists: true,
-        error: false,
         listaDeProductos: listaDeProductos
       });
   }
