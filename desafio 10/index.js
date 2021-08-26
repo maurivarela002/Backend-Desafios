@@ -17,6 +17,29 @@ server.on("error", (error) => {
   console.error(error);
 });
 
+//desafio 9
+//parte1 put
+app.put('/api/productos/actualizar/:id', (req, res) => {
+  try {
+      const producto = productos.actualizarProducto(req.body.title, req.body.price, req.body.thumbnail, req.params.id);
+      if (producto) {
+          res.send(producto);
+          return;
+      } else {
+          res.send({ error: 'producto no actualizado' });
+      }
+  } catch (err) {
+      console.log("hubo un error al actualizar", err);
+  }
+});
+
+//parte3
+app.delete('/api/productos/eliminar/:id', (req, res) => {
+  const producto = productos.borrarProducto(req.body.title, req.body.price, req.body.thumbnail, req.params.id);
+  res.send(producto);
+});
+
+
 const ENGINE_NAME = "hbs";
 
 app.engine(
