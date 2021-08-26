@@ -38,6 +38,6 @@ app.delete('/api/productos/eliminar/:id', (req, res) => {
     res.send(producto);
 });
 
-// app.get("/api", (req, res) => {
-//     res.sendFile(__dirname + "/index.html");
-// });
+app.get("/api", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
+});
