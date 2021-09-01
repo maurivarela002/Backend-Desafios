@@ -40,15 +40,14 @@ app.delete('/api/productos/eliminar/:id', (req, res) => {
 });
 
 
-const ENGINE_NAME = "hbs";
+const ENGINE_NAME = "pug";
 
 app.engine(
   ENGINE_NAME,
   handlebars({
-    extname: ".hbs",
-    layoutsDir: __dirname + "/views/layouts",
-    partialsDir: __dirname + "/views/partials",
-    defaultLayout: "index.hbs",
+    extname: ".pug",
+    layoutsDir: __dirname + "/views",
+    defaultLayout: "main.pug",
   })
 
 ); app.set("views", path.join(__dirname, 'views'));
@@ -66,16 +65,7 @@ app.post('/api/productos/guardar', (req, res) => {
 
 app.get('/api/productos/vista', (req, res) => {
   const listaDeProductos = productos.listarProductos();
-
-  if (listaDeProductos.length == 0) {
-    res.render("main.hbs", {
-      listExists: false,
-      mensaje: "No hay productos!"
-    });
-  } else {
-      res.render("main.hbs", {
-        listExists: true,
+      res.render("main.pug", {
         listaDeProductos: listaDeProductos
       });
-  }
 });
