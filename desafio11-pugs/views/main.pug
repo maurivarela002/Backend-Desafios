@@ -21,14 +21,13 @@ else { %>
                   th (class="text-start fs-3 fw-normal") Precio
                   th (class="text-start fs-3 fw-normal") Imagen
           tbody
-              <% for (const productos of listaDeProductos) { %>
-                  tr
-                      td (class="text-start fs-4")
+              for (const productos of listaDeProductos)
+                      td
                           #{productos.title}
-                      td (class="text-start fs-4")
+                      td
                           #{productos.price}
                       td
-                          img (style="width:4rem; height:4rem" src=<%=productos.thumbnail %>)
+                          img (style="width:4rem; height:4rem" src=productos.thumbnail)
                   <% } %>
           </tbody>
       </table>
