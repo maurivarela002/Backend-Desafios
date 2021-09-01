@@ -1,0 +1,28 @@
+<% if (listaProductos.length == 0) { %>
+  <p class="fs-3 text-danger">No hay productos!</p>
+  <% } else { %>
+      <table class="table table-light table-hover align-middle">
+          <thead>
+              <tr>
+                  <th class="text-start fs-3 fw-normal">Nombre</th>
+                  <th class="text-start fs-3 fw-normal">Precio</th>
+                  <th class="text-start fs-3 fw-normal">Imagen</th>
+              </tr>
+          </thead>
+          <tbody>
+              <% for (const prod of listaProductos) { %>
+                  <tr>
+                      <td class="text-start fs-4">
+                          <%=prod.title %>
+                      </td>
+                      <td class="text-start fs-4">
+                          <%=prod.price %>
+                      </td>
+                      <td>
+                          <img style="width:4rem; height:4rem" src=<%=prod.thumbnail %> />
+                      </td>
+                  </tr>
+                  <% } %>
+          </tbody>
+      </table>
+      <% } %>
