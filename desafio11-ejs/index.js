@@ -46,8 +46,8 @@ app.engine(
   ENGINE_NAME,
   handlebars({
     extname: ".ejs",
-    layoutsDir: __dirname + "/views/layouts",
-    defaultLayout: "index.ejs",
+    layoutsDir: __dirname + "/views",
+    defaultLayout: "main.ejs",
   })
 
 ); app.set("views", path.join(__dirname, 'views'));
@@ -65,16 +65,7 @@ app.post('/api/productos/guardar', (req, res) => {
 
 app.get('/api/productos/vista', (req, res) => {
   const listaDeProductos = productos.listarProductos();
-
-  if (listaDeProductos.length == 0) {
-    res.render("main.ejs", {
-      listExists: false,
-      mensaje: "No hay productos!"
-    });
-  } else {
       res.render("main.ejs", {
-        listExists: true,
         listaDeProductos: listaDeProductos
       });
-  }
 });
