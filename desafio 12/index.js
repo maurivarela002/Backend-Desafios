@@ -1,4 +1,11 @@
-import express from "express";
+const express = require("express");
+const http = require("http");
+const io = require("socket.io");
+
+const app = express();
+const server = http.Server(app);
+const ioServer = io(server);
+
 import handlebars from "express-handlebars";
 import path from "path";
 import productos from "./productos.js";
@@ -6,7 +13,8 @@ import productos from "./productos.js";
 const __dirname = path.resolve();
 const port = 8080;
 const app = express();
-const server = app.listen(port, () => {
+
+const server = server.listen(port, () => {
   console.log(`Puerto ${port} levantado!`);
 });
 app.use(express.json());

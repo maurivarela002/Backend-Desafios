@@ -1,0 +1,14 @@
+[
+	{
+		"title": "Pelota Adidas",
+		"price": 600,
+		"thumbnail": "https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5",
+		"id": 1
+	},
+    {
+		"title": "Pelota Adidas",
+		"price": 600,
+		"thumbnail": "https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5",
+		"id": 2
+	}
+]
