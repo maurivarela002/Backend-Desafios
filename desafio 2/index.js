@@ -5,22 +5,11 @@ class Contenedor {
     this.nombreArchivo = nombreArchivo;
   }
 
-  async Leer() {
-    try {
-      const productos = await fs.promises.readFile(this.nombreArchivo, "utf-8");
-      let arrayProductos = JSON.parse(productos);
-      console.log("leer: ", arrayProductos);
-
-    } catch (err) {
-      console.log("hubo un error", err)
-    };
-  }
-
   async Guardar(newProducto) {
     try {
       const productosleer = await fs.promises.readFile(this.nombreArchivo, "utf-8");
       const arrayProductos = JSON.parse(productosleer);
-      const asignarid = arrayProductos.length + 1;
+      const asignarid = Math.random();
 
       newProducto.id = asignarid
 
@@ -33,7 +22,7 @@ class Contenedor {
       console.log("hubo un error", err)
     };
 
-    let id = newProducto.id;
+    let id = this.nombreArchivo.asignarid;
     return id;
   }
 
@@ -42,10 +31,11 @@ class Contenedor {
       const productos = await fs.promises.readFile(this.nombreArchivo, "utf-8");
       let arrayProductos = JSON.parse(productos);
 
-      console.log(idRecived);
-      console.log("leer: ", arrayProductos[idRecived]);
-
-
+      let idFinded = arrayProductos.find(productos => productos.id === idRecived);
+      // loguee el id que me viene en parametros y deberia cooicidir en el find, no entiendo porque no anda
+      
+      console.log("find", idFinded);
+      console.log("leer: ", arrayProductos[idFinded]);
     }
     catch (err) {
       console.log("hubo un error", err)
@@ -68,7 +58,8 @@ class Contenedor {
 
   async deleteAll() {
     try {
-      await fs.promises.unlink(this.nombreArchivo);
+      let arrayVacio = [];
+      await fs.promises.writeFile(this.nombreArchivo, arrayVacio);
     }
     catch (err) {
       console.log("hubo un error", err)
@@ -81,7 +72,10 @@ class Contenedor {
       const productos = await fs.promises.readFile(this.nombreArchivo, "utf-8");
       let arrayProductos = JSON.parse(productos);
 
-      let deleteToID = arrayProductos.splice(0, idRecived - 1);
+      let index = arrayProductos.findIndex(productos => productos.id === idRecived);
+
+
+      let deleteToID = arrayProductos.splice(0, index - 1);
       console.log("leer: ", arrayProductos);
     }
     catch (err) {
@@ -100,11 +94,11 @@ const newProducto =
 };
 
 
-let id = 2;
 
-nombreDeArchivo.Leer();
-//nombreDeArchivo.Guardar(newProducto);
-// nombreDeArchivo.getById(id);
-// nombreDeArchivo.getAll();
+let idRecived = Math.random();
+
+nombreDeArchivo.Guardar(newProducto);
+nombreDeArchivo.getById(idRecived);
+ //nombreDeArchivo.getAll();
 //nombreDeArchivo.deleteAll();
 //nombreDeArchivo.deleteById(id);

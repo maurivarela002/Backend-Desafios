@@ -1,14 +1,1 @@
-[
-	{
-		"title": "Pelota Adidas",
-		"price": 600,
-		"thumbnail": "https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5",
-		"id": 1
-	},
-    {
-		"title": "Pelota Adidas",
-		"price": 600,
-		"thumbnail": "https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5",
-		"id": 2
-	}
-]
+[{"title":"Pelota Adidas","price":600,"thumbnail":"https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5","id":0.4266022464488155},{"title":"Pelota Adidas","price":600,"thumbnail":"https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5","id":0.6495794992544099},{"title":"Pelota Adidas","price":600,"thumbnail":"https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5","id":0.7073352333817551},{"title":"Pelota Adidas","price":600,"thumbnail":"https://www.soyvisual.org/sites/default/files/styles/twitter_card/public/images/photos/dep_0001-p.jpg?itok=5IWgPHx5","id":0.4270702966210542}]
