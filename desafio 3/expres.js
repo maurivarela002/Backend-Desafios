@@ -34,7 +34,7 @@ const server = app.listen(port, () => {
 });
 
 //productos 1
-app.get("/api/items", (req, res) => {
+app.get("/api/productos", (req, res) => {
     visitasItem++;
     const cantidad = productos.items.length
     console.log(cantidad);
