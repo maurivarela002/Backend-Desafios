@@ -18,7 +18,7 @@ server.on("error", (error) => {
 });
 
 //parte1
-app.get('/api/productos/listar', (req, res) => {
+app.get('/api/productos', (req, res) => {
     try {
         const listProductos = productos.listarProductos();
         if (listProductos.length === 0) {
@@ -32,7 +32,7 @@ app.get('/api/productos/listar', (req, res) => {
 })
 
 //parte2
-app.get('/api/productos/listar/:id', (req, res) => {
+app.get('/api/productos/:id', (req, res) => {
     try {
         const producto = productos.buscarProductoXid(req.params.id);
         if (producto) {
@@ -47,10 +47,32 @@ app.get('/api/productos/listar/:id', (req, res) => {
 });
 
 //parte3
-app.post('/api/productos/guardar', (req, res) => {
+app.post('/api/productos', (req, res) => {
     const producto = productos.agregarProducto(req.body.title, req.body.price, req.body.thumbnail);
     res.send(producto);
 });
+
+//parte4
+app.put('/api/productos/:id', (req, res) => {
+    try {
+        const producto = productos.actualizarProducto(req.body.title, req.body.price, req.body.thumbnail, req.params.id);
+        if (producto) {
+            res.send(producto);
+            return;
+        } else {
+            res.send({ error: 'producto no actualizado' });
+        }
+    } catch (err) {
+        console.log("hubo un error al actualizar", err);
+    }
+});
+
+//parte5
+app.delete('/api/productos/:id', (req, res) => {
+    const producto = productos.borrarProducto(req.body.title, req.body.price, req.body.thumbnail, req.params.id);
+    res.send(producto);
+});
+
 
 app.get("/api", (req, res) => {
     res.sendFile(__dirname + "/index.html");
