@@ -17,7 +17,7 @@ server.on("error", (error) => {
     console.error(error);
 });
 
-//parte1
+//parte1 listar
 app.get('/api/productos', (req, res) => {
     try {
         const listProductos = productos.listarProductos();
@@ -31,7 +31,7 @@ app.get('/api/productos', (req, res) => {
     }
 })
 
-//parte2
+//parte2 listar por id
 app.get('/api/productos/:id', (req, res) => {
     try {
         const producto = productos.buscarProductoXid(req.params.id);
@@ -46,13 +46,13 @@ app.get('/api/productos/:id', (req, res) => {
     }
 });
 
-//parte3
+//parte3 guardar nuevo producto
 app.post('/api/productos', (req, res) => {
     const producto = productos.agregarProducto(req.body.title, req.body.price, req.body.thumbnail);
     res.send(producto);
 });
 
-//parte4
+//parte4 actualizar prod
 app.put('/api/productos/:id', (req, res) => {
     try {
         const producto = productos.actualizarProducto(req.body.title, req.body.price, req.body.thumbnail, req.params.id);
@@ -67,7 +67,7 @@ app.put('/api/productos/:id', (req, res) => {
     }
 });
 
-//parte5
+//parte5 eliminar prod
 app.delete('/api/productos/:id', (req, res) => {
     const producto = productos.borrarProducto(req.body.title, req.body.price, req.body.thumbnail, req.params.id);
     res.send(producto);
