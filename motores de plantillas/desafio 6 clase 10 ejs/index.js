@@ -2,12 +2,14 @@ import express from "express";
 import handlebars from "express-handlebars";
 import path from "path";
 import productos from "./productos.js";
+import  socket from "socket";
 
 const __dirname = path.resolve();
-const port = 8080;
+const port = 8082;
 const app = express();
+const io = require("socket.io");
 const server = app.listen(port, () => {
-  console.log(`Puerto ${port} levantado!`);
+  console.log(`Puerto ${port} levantado! en localhost:8080`);
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,6 +18,19 @@ app.use(express.static(`${__dirname}/public`));
 server.on("error", (error) => {
   console.error(error);
 });
+
+//mensajes para el chat
+const messages = [
+  {author: 'Mauri', text: 'hola soy mauri'},
+  {author: 'Fede', text: 'hola soy fede'},
+  {author: 'Nico', text: 'hola soy nico'},
+];
+
+
+io.on('connection', function (socket) {
+  console.log('connection soocketeada');
+  socket.emit('connection', messages);
+})
 
 //desafio 9
 //parte1 put
