@@ -10,16 +10,17 @@ const mensajes = [];
 
 app.use(express.static('public'));
 
-socketio.on('Connection', socket => { 
+socketio.on('connection', socket => { 
     console.log('Nuevo Cliente conectado!');
-})
+    
+    socket.emit('mensajes', mensajes);
 
-socketio.emit('mensajes', mensajes);
-
-socketio.on('mensaje', data => {
+    socket.on('mensaje', data => {
     mensajes.push({socketid: socket.id, mensaje: data});
-    io.sockets.emit('mensajes', mensajes);
+    socketio.sockets.emit('mensajes', mensajes);
+    })
 })
+
 
 const PORT = 8080;
 const server = httpServer.listen(PORT, () => {
