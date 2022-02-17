@@ -1,41 +1,41 @@
 const socket = io.connect();
-console.log('aaaaaaaaaaaaaa');
 
-const input = document.querySelector('input');
-document.querySelector('button').addEventListener('click', () => {
-  console.log('boton presionado');
-  socket.emit('mensaje', input.value);
-});
-
-socket.on('mensajes', msjs =>{
-  const mensajeHTML = msjs
-  .map(msj => `SocketId: ${msj.socketid} => Mensaje ${msj.mensaje}`)
-  .join('<br>')
-  document.querySelector('p').innerHTML = mensajeHTML;
-  console.log('mensajito');
+const formEnviarMensaje = document.getElementById('formEnviarMensaje')
+formEnviarMensaje.addEventListener('submit', e => {
+  e.preventDefault()
+  const mensaje = {
+    author: formEnviarMensaje[0].value,
+    text: formEnviarMensaje[1].value
+  }
+  socket.emit('mensaje', mensaje);
+  formEnviarMensaje.reset()
+  formEnviarMensaje[0].focus()
 })
 
-//parte1 put
-app.put('/api/productos/actualizar/:id', (req, res) => {
-  try {
-      const producto = productos.actualizarProducto(req.body.title, req.body.price, req.body.thumbnail, req.params.id);
-      if (producto) {
-          res.send(producto);
-          return;
-      } else {
-          res.send({ error: 'producto no actualizado' });
-      }
-  } catch (err) {
-      console.log("hubo un error al actualizar", err);
+socket.on('mensajes', msjs =>{
+ const mensajeHTML = msjs
+ .map(msj => `SocketId: ${msj.socketid} - Author: ${msj.author} - Mensaje: ${msj.text}`)
+ .join('<br>')
+ document.getElementById('insertMessages').innerHTML = mensajeHTML
+})
+
+// productos
+const formAgregarProducto = document.getElementById('formAgregarProducto')
+formAgregarProducto.addEventListener('submit', e => {
+  e.preventDefault()
+  const producto = {
+    title: formAgregarProducto[0].value,
+    price: formAgregarProducto[1].value,
+    thumbnail: formAgregarProducto[2].value
   }
-});
+  socket.emit('newProduct', producto);
+  formAgregarProducto.reset()
+  formAgregarProducto[0].focus()
+})
 
-//parte3
-app.delete('/api/productos/eliminar/:id', (req, res) => {
-  const producto = productos.borrarProducto(req.body.title, req.body.price, req.body.thumbnail, req.params.id);
-  res.send(producto);
-});
-
-app.get("/api", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
+socket.on('productos', productos => {
+ let htmlProductos = productos.map(e => `
+  <li>${e.title} - $ ${e.price} - ${e.thumbnail}</li>
+ `).join(' ')
+ document.getElementById('insertProducts').innerHTML = htmlProductos
+})

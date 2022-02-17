@@ -8,21 +8,29 @@
     <title>Actualizar Producto</title>
 </head>
 <body>
-    <form action="/api/productos/actualizar/:id" method="PUT">
-        <input type="text" name="title" placeholder="Pelota Nike" required/>
-        <input type="number" name="price" placeholder="$2000" required/>
-        <input name="thumbnail"  placeholder="www.pelotasNike.com" required/>
-        <button type="submit">
-            Actualizar Producto
-        </button>
-    </form>
-
-    <p>--------------------------------------------------------------------------------------------------------------------------------</p>
-
-    <h2>Clientes</h2>
-    <input />
-    <button type="submit">Enviar</button>
-    <p></p>
-    <script src="./index.js"></script>
+    <body>
+        <h2>Ingresar productos</h2>
+        <form id="formAgregarProducto">
+          <input type="text" name="title" placeholder="Pelota Nike" required/>
+          <input type="number" name="price" placeholder="$2000" required/>
+          <input name="thumbnail" placeholder="www.pelotasNike.com" required/>
+          <button type="submit">
+            Enviar
+          </button>
+        </form>
+      
+        <p>--------------------------------------------------------------------------------------------------------------------------------</p>
+        <ul id="insertProducts"></ul>
+      
+        <h2>Canal de chat</h2>
+        <form id="formEnviarMensaje">
+          <input type="email" name="email" id="" placeholder="Ingrese su email...">
+          <input type="text" name="message" id="" placeholder="Ingrese un mensaje...">
+          <button type="submit">Enviar</button>
+        </form>
+        <p id="insertMessages"></p>
+        <script src="./index.js"></script>
+      </body>
+      
 </body>
 </html>
